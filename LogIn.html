@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="LogIn.js"></script>
+
+
+    <title></title>
+
+    <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
+    <style>
+
+    body{
+    font-family: 'Athiti', sans-serif;
+    background-color: #e9ebee;
+
+    }
+    header{
+background-color: #4267b2;
+
+
+    }
+
+    .card-header{
+
+background-color: #4267b2;
+
+    }
+    .card-body{
+
+background-color:#f6f6f6;
+    }
+
+    .btn{
+
+border-color: #4267b2;
+background-color:  #e9ebee;
+font-weight: bold;
+
+    }
+
+    h1{
+
+      font-weight: bolder;
+    }
+
+    h3{
+
+      font-weight: bolder;
+    }
+    #submission {
+  text-align: center;
+  }
+
+  button{
+    width: 400px;
+  }
+
+    </style>
+
+
+
+  </head>
+  <body>
+
+    <header class="text-light text-center">
+
+    <br />
+        <h1>
+          Apllication of IoT for Car Parking System
+        </h1><br />
+
+    </header>
+<br /><br />
+    <div class = "container">
+
+      <div class="card   shadow-lg mb-5 ">
+      <div class="card-header  text-light text-center">
+  <h3>กรุณาเข้าสู่ระบบ</h3>
+</div>
+<div class="card-body  " >
+
+  <label class="text-left" ><b>e-Mail :</b> </label>
+  <input  type="email" class="form-control"  placeholder="ระบุ E-Mail "  id="email"   required ><br />
+  <label class="text-left " ><b>Password : </b></label>
+  <input  type="password" class="form-control "  placeholder="ระบุ Password"   id="password" required ><br />
+  <p id="submission"><button  type="submit" class="btn btn-default align-middle "  onclick="SignIn()" >เข้าสู่ระบบ</button></p>
+
+</div>
+
+</div>
+
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBjiJPFdGA2XnVRGDy0UpVVrYncbwQDZCY",
+        authDomain: "carparkingbyiot.firebaseapp.com",
+        databaseURL: "https://carparkingbyiot.firebaseio.com",
+        projectId: "carparkingbyiot",
+        storageBucket: "carparkingbyiot.appspot.com",
+        messagingSenderId: "853807989424"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src="/__/firebase/5.9.2/firebase-app.js"></script>
+    <script src="/__/firebase/5.9.2/firebase-auth.js"></script>
+    <script src="/__/firebase/init.js"></script>
+
+
+
+  </body>
+<footer>
+  <div class="text-center text-dark">
+    <br />  <br />  <br />  <br />
+      Copyright &copy; by Thiwakorn Chueykead All Right Reserved
+  </div>
+
+</footer>
+
+</html>

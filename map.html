@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+
+
+    <title>Admin</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHAgqcpoHI-jjIW-jlLSWNvYofAXXCdVc&libraries=places&callback=initMap" async defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
+    <style>
+
+
+
+      header{
+
+          background-color: #4267b2;
+
+      }
+
+      body{
+        font-family: 'Athiti', sans-serif;
+        background-color: #e9ebee;
+
+      }
+      h2{
+
+          font-weight: bolder;
+          text-align: center;
+          color: #4267b2;
+      }
+
+      #map {
+       width: 100%;
+       height: 600px;
+
+      }
+      .controls {
+       margin-top: 10px;
+       border: 1px solid transparent;
+       border-radius: 2px 0 0 2px;
+       height: 32px;
+       outline: none;
+       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+      #searchInput {
+       background-color: #fff;
+       font-family: 'Athiti', sans-serif;
+       font-size: 15px;
+       font-weight: 300;
+       margin-left: 12px;
+       padding: 0 11px 0 13px;
+       text-overflow: ellipsis;
+       width: 50%;
+      }
+      #searchInput:focus {
+       border-color: #4d90fe;
+      }
+
+  </style>
+  </head>
+  <body>
+
+    <header class="text-light text-center">
+
+    <br />
+        <h1 >
+          Apllication of IoT for Car Parking System
+        </h1><br />
+
+    </header>
+
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-8">
+          <br /><br /><br />
+            <div class="card  shadow-lg mb-5">
+                <div class="card-body " >
+          <h2>แผนที่</h2><hr />
+          <input id="searchInput" onfocus="this.value=''" class="controls" type="text" placeholder="Enter a location" >
+          <div id="map"></div>
+          </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <br /><br /><br />
+          <div class="card  shadow-lg mb-5">
+          <div class="card-body " >
+            <h2>ข้อมูลสถานที่</h2><hr />
+            <div class="card-body border" style="background : #f6f6f6">
+          <ul id="geoData">
+           <li>ที่อยู่: <span id="location"></span></li>
+           <li>ประเทศ: <span id="country"></span></li>
+           <li>ละติจูด: <span id="lat"></span></li>
+           <li>ลองจิจูด: <span id="lon"></span></li>
+          </ul>
+            </div>
+          </div>
+
+        </div>
+        </div>
+      </div>
+  </div>
+
+
+
+
+    <script>
+
+
+
+ function initMap() {
+
+
+ var map = new google.maps.Map(document.getElementById('map'), {
+ center: {lat: 15.870032, lng:100.99254100000007},
+ zoom: 13
+ });
+
+
+ var input = document.getElementById('searchInput');
+ map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+ var autocomplete = new google.maps.places.Autocomplete(input);
+ autocomplete.bindTo('bounds', map);
+
+ var infowindow = new google.maps.InfoWindow();
+
+
+ var marker = new google.maps.Marker({
+ map: map,
+ anchorPoint: new google.maps.Point(0, -29)
+ });
+
+
+ autocomplete.addListener('place_changed', function() {
+ infowindow.close();
+ marker.setVisible(false);
+ var place = autocomplete.getPlace();
+ if (!place.geometry) {
+ window.alert("ไม่ค้นพบพิกัดจากสถานที่ดังกล่าว");
+ return;
+ }
+
+
+ if (place.geometry.viewport) {
+ map.fitBounds(place.geometry.viewport);
+ } else {
+ map.setCenter(place.geometry.location);
+ map.setZoom(17);
+ }
+
+ marker.setPosition(place.geometry.location);
+ marker.setVisible(true);
+
+
+ var address = '';
+ if (place.address_components) {
+ address = [
+ (place.address_components[0] && place.address_components[0].short_name || ''),
+ (place.address_components[1] && place.address_components[1].short_name || ''),
+ (place.address_components[2] && place.address_components[2].short_name || '')
+ ].join(' ');
+ }
+
+ infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+ infowindow.open(map, marker);
+
+
+ for (var i = 0; i < place.address_components.length; i++) {
+ if(place.address_components[i].types[0] == 'postal_code'){
+ document.getElementById('postal_code').innerHTML = place.address_components[i].long_name;
+ }
+ if(place.address_components[i].types[0] == 'country'){
+ document.getElementById('country').innerHTML = place.address_components[i].long_name;
+ }
+ }
+ document.getElementById('location').innerHTML = place.formatted_address;
+ document.getElementById('lat').innerHTML = place.geometry.location.lat();
+ document.getElementById('lon').innerHTML = place.geometry.location.lng();
+ });
+}
+</script>
+
+
+  </body>
+<footer>
+<br /><br /><br />
+  <div class="text-center text-dark">
+      Copyright &copy; by Thiwakorn Chueykead All Right Reserved
+  </div>
+  <br /><br /><br />
+</footer>
+
+</html>
